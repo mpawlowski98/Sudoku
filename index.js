@@ -3,7 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const sudokuGrid = document.getElementById("sudoku-grid");
   const solveButton = document.getElementById("solve-btn");
   const generatePuzzleButton = document.getElementById("generate-puzzle-btn");
+  const clearButton = document.getElementById("clear-btn");
+  const generateEasysPuzzle = document.getElementById("generate-easy-btn");
+  const generateMediumsPuzzle = document.getElementById("generate-medium-btn");
+  const generateHardsPuzzle = document.getElementById("generate-hard-btn");
 
+  generateHardsPuzzle.addEventListener("click", generateHardPuzzle);
+  generateMediumsPuzzle.addEventListener("click", generateMediumPuzzle);
+  generateEasysPuzzle.addEventListener("click", generateEasyPuzzle);
+  clearButton.addEventListener("click", clearGame);
   generatePuzzleButton.addEventListener("click", generateRandomPuzzle);
   solveButton.addEventListener("click", generateSudoku);
 
@@ -87,33 +95,6 @@ async function generateSudoku() {
   }
 }
 
-// function generateRandomPuzzle() {
-//   const gridSize = 9;
-
-//   for (let row = 0; row < gridSize; row++) {
-//     for (let col = 0; col < gridSize; col++) {
-//       const cellId = `cell-${row}-${col}`;
-//       const cell = document.getElementById(cellId);
-//       const isUserInput = cell.classList.contains("user-input");
-
-//       if (!isUserInput) {
-//         // Generuj losowe liczby w określonym przedziale tylko dla nieoznaczonych komórek
-//         const isFilled = Math.random() < 0.5; // Około połowa komórek będzie uzupełniona
-//         if (isFilled) {
-//           const randomNumber = Math.floor(Math.random() * 9) + 1; // Zakres: 15-30
-//           cell.value = randomNumber;
-//           cell.classList.add("user-input"); // Oznacz jako uzupełniony przez użytkownika
-//         } else {
-//           cell.value = ""; // Pozostaw puste
-//         }
-//         cell.classList.remove("solved");
-//         cell.classList.remove("error");
-//         cell.classList.remove("correct");
-//       }
-//     }
-//   }
-// }
-
 function generateSudokuHelper(board) {
   const gridSize = 9;
 
@@ -141,13 +122,11 @@ function generateSudokuHelper(board) {
 
 function generateRandomPuzzle() {
   const sudokuGrid = document.getElementById("sudoku-grid");
-  sudokuGrid.innerHTML = ""; // Wyczyść planszę przed generowaniem nowej
+  sudokuGrid.innerHTML = "";
 
-  // Generuj planszę optymalną i pełną
   const fullSudoku = generateOptimalSudoku();
 
-  // Usuń losowe liczby, aby stworzyć planszę z pustymi polami
-  const cellsToClear = Math.floor(Math.random() * 60) + 40; // Usuń od 20 do 59 komórek
+  const cellsToClear = Math.floor(Math.random() * 60) + 40;
   let clearedCells = 0;
 
   for (let i = 0; i < cellsToClear; i++) {
@@ -160,7 +139,6 @@ function generateRandomPuzzle() {
     }
   }
 
-  // Generuj planszę w HTML
   for (let row = 0; row < 9; row++) {
     const newRow = document.createElement("tr");
     for (let col = 0; col < 9; col++) {
@@ -171,7 +149,7 @@ function generateRandomPuzzle() {
       input.id = `cell-${row}-${col}`;
       if (fullSudoku[row][col] !== 0) {
         input.value = fullSudoku[row][col];
-        input.readOnly = true; // Uzupełnione liczby zostaną oznaczone jako tylko do odczytu
+        input.readOnly = true;
         input.classList.add("user-input");
       }
       cell.appendChild(input);
@@ -181,13 +159,142 @@ function generateRandomPuzzle() {
   }
 }
 
-// Funkcja generująca planszę Sudoku optymalną i pełną
+function generateEasyPuzzle() {
+  const sudokuGrid = document.getElementById("sudoku-grid");
+  sudokuGrid.innerHTML = "";
+
+  const fullSudoku = generateOptimalSudoku();
+
+  const cellsToClear = Math.floor(Math.random() * 4) + 30;
+  let clearedCells = 0;
+
+  for (let i = 0; i < cellsToClear; i++) {
+    const row = Math.floor(Math.random() * 9);
+    const col = Math.floor(Math.random() * 9);
+
+    if (fullSudoku[row][col] !== 0) {
+      fullSudoku[row][col] = 0;
+      clearedCells++;
+    }
+  }
+
+  for (let row = 0; row < 9; row++) {
+    const newRow = document.createElement("tr");
+    for (let col = 0; col < 9; col++) {
+      const cell = document.createElement("td");
+      const input = document.createElement("input");
+      input.type = "number";
+      input.className = "cell";
+      input.id = `cell-${row}-${col}`;
+      if (fullSudoku[row][col] !== 0) {
+        input.value = fullSudoku[row][col];
+        input.readOnly = true;
+        input.classList.add("user-input");
+      }
+      cell.appendChild(input);
+      newRow.appendChild(cell);
+    }
+    sudokuGrid.appendChild(newRow);
+  }
+}
+
+function generateMediumPuzzle() {
+  const sudokuGrid = document.getElementById("sudoku-grid");
+  sudokuGrid.innerHTML = "";
+
+  const fullSudoku = generateOptimalSudoku();
+
+  const cellsToClear = Math.floor(Math.random() * 8) + 50;
+  let clearedCells = 0;
+
+  for (let i = 0; i < cellsToClear; i++) {
+    const row = Math.floor(Math.random() * 9);
+    const col = Math.floor(Math.random() * 9);
+
+    if (fullSudoku[row][col] !== 0) {
+      fullSudoku[row][col] = 0;
+      clearedCells++;
+    }
+  }
+
+  for (let row = 0; row < 9; row++) {
+    const newRow = document.createElement("tr");
+    for (let col = 0; col < 9; col++) {
+      const cell = document.createElement("td");
+      const input = document.createElement("input");
+      input.type = "number";
+      input.className = "cell";
+      input.id = `cell-${row}-${col}`;
+      if (fullSudoku[row][col] !== 0) {
+        input.value = fullSudoku[row][col];
+        input.readOnly = true;
+        input.classList.add("user-input");
+      }
+      cell.appendChild(input);
+      newRow.appendChild(cell);
+    }
+    sudokuGrid.appendChild(newRow);
+  }
+}
+
+function generateHardPuzzle() {
+  const sudokuGrid = document.getElementById("sudoku-grid");
+  sudokuGrid.innerHTML = "";
+
+  const fullSudoku = generateOptimalSudoku();
+
+  const cellsToClear = Math.floor(Math.random() * 8) + 80;
+  let clearedCells = 0;
+
+  for (let i = 0; i < cellsToClear; i++) {
+    const row = Math.floor(Math.random() * 9);
+    const col = Math.floor(Math.random() * 9);
+
+    if (fullSudoku[row][col] !== 0) {
+      fullSudoku[row][col] = 0;
+      clearedCells++;
+    }
+  }
+
+  for (let row = 0; row < 9; row++) {
+    const newRow = document.createElement("tr");
+    for (let col = 0; col < 9; col++) {
+      const cell = document.createElement("td");
+      const input = document.createElement("input");
+      input.type = "number";
+      input.className = "cell";
+      input.id = `cell-${row}-${col}`;
+      if (fullSudoku[row][col] !== 0) {
+        input.value = fullSudoku[row][col];
+        input.readOnly = true;
+        input.classList.add("user-input");
+      }
+      cell.appendChild(input);
+      newRow.appendChild(cell);
+    }
+    sudokuGrid.appendChild(newRow);
+  }
+}
+
 function generateOptimalSudoku() {
   const sudokuArray = Array.from({ length: 9 }, () => Array(9).fill(0));
-  generateSudokuHelper(sudokuArray); // Wypełnij planszę pełną
+  generateSudokuHelper(sudokuArray);
   return sudokuArray;
 }
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function clearGame() {
+  const cells = document.querySelectorAll(".cell");
+
+  cells.forEach((cell) => {
+    if (!cell.classList.contains("user-input")) {
+      cell.value = "";
+      cell.classList.remove("solved");
+      cell.classList.remove("error");
+      cell.classList.remove("correct");
+    }
+  });
 }

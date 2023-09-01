@@ -9,14 +9,29 @@
 
   <body>
     <h1>Sudoku</h1>
+
     <div class="sudoku-container">
       <table>
         <tbody id="sudoku-grid"></tbody>
       </table>
     </div>
+
+    <div class="containter__button-level">
+      <button id="generate-easy-btn" class="easy">Generate Easy Puzzle</button>
+      <button id="generate-medium-btn" class="medium">
+        Generate Medium Puzzle
+      </button>
+      <button id="generate-hard-btn" class="hard">Generate Hard Puzzle</button>
+    </div>
+
     <div class="container__button">
-      <button id="solve-btn">Generation of numbers</button>
-      <button id="generate-puzzle-btn">Generate Puzzle</button>
+      <button id="clear-btn" class="clear">Clear Game</button>
+      <button id="solve-btn" class="generationanswer">
+        Generation of numbers
+      </button>
+      <button id="generate-puzzle-btn" class="generationpuzzle">
+        Generate Puzzle
+      </button>
     </div>
     <script src="index.js"></script>
   </body>

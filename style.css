@@ -79,7 +79,44 @@ button {
 button:hover {
   background-color: #ff513e;
 }
-
+.container {
+  display: flex;
+}
+.containter__button-level {
+  display: flex;
+}
+.easy {
+  background-color: #34a32e;
+}
+.easy:hover {
+  background-color: #07eb2d;
+}
+.medium {
+  background-color: #bbc71b;
+  color: #000;
+}
+.medium:hover {
+  background-color: #eafa0b;
+}
+.hard {
+  background-color: #df220d;
+}
+.generationanswer {
+  background-color: #0747f7;
+}
+.generationanswer:hover {
+  background-color: #078bf7;
+}
+.generationpuzzle {
+  background-color: #34a32e;
+}
+.generationpuzzle:hover {
+  background-color: #07eb2d;
+}
+.clear {
+  background-color: white;
+  color: #000;
+}
 .solved {
   /* background-color: #79ff73; */
   transition: all 0.4s ease-in-out;
